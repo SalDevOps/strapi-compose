@@ -8,16 +8,14 @@ services:
     container_name: nginx
     restart: always
     volumes:
-      - ./config/nginx.conf:/tmp/template.conf
+      - ./nginx/nginx.conf:/tmp/template.conf
     environment: 
       - API_SERVER_ADDR=strapi
       - API_SERVER_PORT=1337
       # Logging health-checks. 0 to disable
-      - LOG_HEALTH_CHECKS=1
+      - NG_LOG_HEALTH_CHECKS=1
     ports:
       - "80:80"
-    depends_on:
-      - backend
     networks:
       - strapi-stack
     healthcheck:
