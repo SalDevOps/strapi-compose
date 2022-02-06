@@ -1,4 +1,6 @@
-app
+models
 node_modules
 .git
 .tmp
+.env
+.lock
