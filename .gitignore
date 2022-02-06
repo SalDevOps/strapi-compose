@@ -1,3 +1,5 @@
-/app
 .env
 password.lock
+*/api/*
+*/extensions/*
+!.gitkeep

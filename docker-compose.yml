@@ -27,7 +27,8 @@ services:
       retries: 3
 
   backend:
-    image: strapi/strapi:3.6.8-alpine
+    # Packaged Strapi 3.6.2 Node12 [alpine]
+    image: libre/strapi:v3-n12
     container_name: strapi
     restart: unless-stopped
     env_file: .env
@@ -41,7 +42,8 @@ services:
     networks:
       - strapi-stack
     volumes:
-      - ./app:/srv/app
+      - ./models/api:/srv/app/api
+      - ./models/extensions:/srv/app/extensions
     ports:
       - "1337:1337"
 
