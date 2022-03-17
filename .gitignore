@@ -1,5 +1,14 @@
-.env
-password.lock
-*/api/*
-*/extensions/*
+# Environment configuration files
+*.env
+.env*
+# except for the example one
+!.env.example
+
+# Passwords and Token files
+*.key
+
+# Files to force-keep some empty folders in the repository
 !.gitkeep
+
+# Target path to export template
+template/
