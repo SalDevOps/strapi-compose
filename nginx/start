@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PUBLIC_IP=$(curl -s ifconfig.me)
 echo "Starting nginx in $PUBLIC_IP"
