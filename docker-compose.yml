@@ -12,7 +12,7 @@ services:
     environment: 
       - API_SERVER_ADDR=strapi
       - API_SERVER_PORT=1337
-      # Logging health-checks. 0 to disable
+      # Logging health-checks.
       - NG_LOG_HEALTH_CHECKS=1
     ports:
       - "80:80"
@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: strapi/Dockerfile
       args:
-        - STRAPI_IMAGE=${STRAPI_IMAGE:-libre/strapi}
+        - STRAPI_IMAGE
         - STRAPI_IMAGE_TAG
         - STRAPI_TEMPLATE_URL
         - GITHUB_TOKEN_FILE_PATH

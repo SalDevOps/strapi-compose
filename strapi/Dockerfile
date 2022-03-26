@@ -1,26 +1,42 @@
 # Base Image
-ARG STRAPI_IMAGE=libre/strapi
-ARG STRAPI_IMAGE_TAG=latest
-FROM ${STRAPI_IMAGE}:${STRAPI_IMAGE_TAG} AS base
-
+ARG STRAPI_IMAGE=libre/strapi-live
+ARG STRAPI_IMAGE_TAG=v3
+ARG STRAPI_BASE_TAG=v3.6.8-n14
 
 # Build Stage
-FROM base AS import-build
+FROM ${STRAPI_IMAGE}:${STRAPI_IMAGE_TAG} AS build
 
 ARG GITHUB_TOKEN_FILE_PATH
 ARG SECRET_NAME=github_token
 ARG STRAPI_TEMPLATE_URL
 
+USER root
+
 ADD ${GITHUB_TOKEN_FILE_PATH} /run/secrets/${SECRET_NAME}
+
+RUN rm -rf build
 
 RUN import-strapi ${STRAPI_TEMPLATE_URL} \
     --secret ${SECRET_NAME} \
-    --install
+    --install \
+    --build \
+    --lockfile
 
 
 # Final Stage
-FROM base AS final
+FROM libre/strapi:${STRAPI_BASE_TAG} AS final
 
-COPY --from=import-build \
-    --chown=strapi:strapi \
-    /srv/app /srv/app
+COPY --from=build   --chown=strapi:strapi \
+                    ${APP_PATH} ${APP_PATH}
+
+VOLUME [ "${APP_PATH}/public" ]
+
+EXPOSE 1337
+
+HEALTHCHECK CMD curl -I 0.0.0.0:1337/_health || exit 1 \
+    --interval=36s \
+    --timeout=6s \
+    --start-period=6s \
+    --retries=3
+
+CMD [ "start" ]

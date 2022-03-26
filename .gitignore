@@ -7,6 +7,9 @@
 # Passwords and Token files
 *.key
 
+# Configuration Files
+config/
+
 # Files to force-keep some empty folders in the repository
 !.gitkeep
 
