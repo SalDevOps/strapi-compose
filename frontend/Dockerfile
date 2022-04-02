@@ -60,10 +60,12 @@ RUN yarn build
 # Result Image to serve static files as a website with NginX
 FROM nginx:1.19.7-alpine AS server
 
-RUN apk add --no-cache bash
+COPY frontend/docker-entrypoint.sh /usr/local/bin/entrypoint
+
+RUN apk add --no-cache bash \
+    && chmod +x /usr/local/bin/entrypoint
 
 COPY --chown=nginx:nginx frontend/nginx.conf /tmp/template.conf
-COPY frontend/docker-entrypoint.sh /usr/local/bin/entrypoint
 
 COPY --from=build --chown=nginx:nginx /src/build/ /var/www/html/
 
@@ -75,4 +77,4 @@ HEALTHCHECK CMD curl --head --silent --fail 0.0.0.0:8080/health-check || exit 1 
     --start-period=6s \
     --retries=3
 
-ENTRYPOINT [ "entrypoint" ]
+ENTRYPOINT entrypoint
