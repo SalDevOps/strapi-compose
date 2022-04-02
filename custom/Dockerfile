@@ -3,8 +3,9 @@ ARG STRAPI_IMAGE=libre/strapi-live
 ARG STRAPI_IMAGE_TAG=v3
 
 FROM ${STRAPI_IMAGE}:${STRAPI_IMAGE_TAG} AS build
+ARG DEPENDENCIES_FILE_PATH
 
-ADD --chown=strapi:strapi config/base-package.json /custom/package.json
+ADD --chown=strapi:strapi ${DEPENDENCIES_FILE_PATH} /custom/package.json
 
 RUN rm -rf build \
     && import-strapi \

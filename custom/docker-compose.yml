@@ -6,4 +6,6 @@ services:
     build:
       context: ../
       dockerfile: custom/Dockerfile
+      args:
+        - DEPENDENCIES_FILE_PATH
     image: ${REGISTRY:-docker.io}/${DOCKER_U:-libre}/${DOCKER_I:-strapi-custom}:${TAG:-v3}
