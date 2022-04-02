@@ -28,6 +28,10 @@ services:
         - STRAPI_IMAGE
         - STRAPI_IMAGE_TAG
         - STRAPI_TEMPLATE_URL
+        - STRAPI_TEMPLATE_BRANCH
+        - STRAPI_TEMPLATE_SUBDIR
+        - STRAPI_TEMPLATE_EXTRAS
+        - GITHUB_USER_NAME
         - GITHUB_TOKEN_FILE_PATH
     image: strapi-backend
     container_name: strapi
