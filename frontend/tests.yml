@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+  tests:
+    build:
+      context: ../
+      dockerfile: frontend/Dockerfile
+      target: tests
+      args:
+      - BASE_IMAGE
+      - BASE_IMG_TAG
+      - GITHUB_TOKEN_FILE_PATH
+      - APP_REPO_URL
+      - APP_REPO_BRANCH
+      - USER_NAME
+    image: nginx-fe-tests
+    container_name: tests
