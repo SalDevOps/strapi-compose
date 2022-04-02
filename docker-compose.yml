@@ -49,8 +49,8 @@ services:
       - db
     volumes:
       - ${PWD}/template:/var/local/template
-    ports:
-      - "1337:1337"
+    expose:
+      - 1337
 
   db:
     image: postgres:14-alpine
