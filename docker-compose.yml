@@ -18,11 +18,7 @@ services:
       - "80:80"
     networks:
       - strapi-stack
-    healthcheck:
-      test: ["CMD-SHELL", "curl --silent --fail localhost:80/health-check || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+
 
   backend:
     build:
