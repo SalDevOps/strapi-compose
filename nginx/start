@@ -14,12 +14,11 @@ export  NG_BACKEND_URLS='('"$(grep -vE '^[ #]+|^$' upstream.ini | xargs | sed -e
 echo "Found Backend URLs ${NG_BACKEND_URLS}"
 
 # Only Environment variables starting with API_ or NG_ will be exported/replaced in nginx config file:
-export  NGINX_ENV="$(compgen -A variable | grep -E '(API|NG)_' | sed -e 's/^/$/' | xargs | sed -e 's/ / /g')"
+export  NGINX_ENV="$(compgen -A variable | grep -E '(APP|API|NG)_' | sed -e 's/^/$/' | xargs | sed -e 's/ / /g')"
 echo "Replacing Environment Variables ${NGINX_ENV}"
 envsubst "$NGINX_ENV" \
     < /tmp/template.conf \
     > /etc/nginx/conf.d/default.conf
-# cat /etc/nginx/conf.d/default.conf
 
 echo "✅ NGINX Engines Ready"
 nginx -g 'daemon off;'

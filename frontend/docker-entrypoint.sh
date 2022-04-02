@@ -14,7 +14,7 @@ prepare_config() {
 
 start_nginx() {
     prepare_config
-    echo "✅ Starting to Server FrontEnd app with NGINX..."
+    echo "✅ Starting to Serve FrontEnd app with NGINX..."
     nginx -g 'daemon off;'
 }
 

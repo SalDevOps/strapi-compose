@@ -12,13 +12,36 @@ services:
     environment: 
       - API_SERVER_ADDR=strapi
       - API_SERVER_PORT=1337
+      - APP_SERVER_ADDR=frontend
+      - APP_SERVER_PORT=8080
       # Logging health-checks.
-      - NG_LOG_HEALTH_CHECKS=1
+      - NG_LOG_HEALTH_CHECKS
     ports:
       - "80:80"
     networks:
       - strapi-stack
 
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+      - BASE_IMAGE
+      - BASE_IMG_TAG
+      - GITHUB_USER_NAME
+      - GITHUB_TOKEN_FILE_PATH
+      - APP_REPO_URL
+      - APP_REPO_BRANCH
+    image: nginx-fe-app
+    container_name: frontend
+    restart: always
+    environment: 
+      # Logging health-checks.
+      - NG_LOG_HEALTH_CHECKS
+    expose:
+      - 8080
+    networks:
+      - strapi-stack
 
   backend:
     build:
